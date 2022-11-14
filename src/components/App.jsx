@@ -22,12 +22,16 @@ export default function App() {
       name,
       number,
     };
-    const searchContact = contacts.find(
-      contact => contact.name.toLowerCase() === name.toLowerCase()
-    );
-    searchContact
-      ? alert(`${name} is already in contact`)
-      : setContacts(prevState => [...prevState.contacts, contact]);
+
+    if (
+      contacts.find(
+        contact => contact.name.toLowerCase() === name.toLowerCase()
+      )
+    )
+      alert(`${name} is already in contact`);
+    else {
+      return setContacts(prevState => [...prevState.contacts, contact]);
+    }
   };
 
   const deleteContact = contactId => {
