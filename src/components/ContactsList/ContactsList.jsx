@@ -1,30 +1,20 @@
-import { ContactsListItem } from '../ContactsListItem/ContactsListItem';
-import { List } from './ContactsList.styled';
+import { List, Item, Button } from './ContactsList.styled';
+import { useSelector } from 'react-redux/es/exports';
 import PropTypes from 'prop-types';
 
-export const ContactsList = ({ contacts, onRemove }) => {
+export const ContactsList = () => {
+  const contacts = useSelector(state => state.contacts);
+
   return (
     <List>
-      {contacts.map(({ id, name, number }) => (
-        <ContactsListItem
-          key={id}
-          id={id}
-          name={name}
-          number={number}
-          onRemove={onRemove}
-        />
+      {contacts.map(({ id, number, name }) => (
+        <Item key={id}>
+          <p>
+            {name}: {number}
+          </p>
+          <Button type="button">Delete contact</Button>
+        </Item>
       ))}
     </List>
   );
-};
-
-ContactsList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.exact({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    }).isRequired
-  ).isRequired,
-  onRemove: PropTypes.func.isRequired,
 };
